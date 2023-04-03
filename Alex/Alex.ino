@@ -13,6 +13,33 @@
 #define S2 12
 #define S3 13
 #define sensorOut 9
+#define buzzerPin 4
+
+void playGreen() {
+int melody[ ] = { 262, 294, 330, 294, 262, 262, 262, 294, 294, 294, 330, 330, 330, 294, 262, 262, 294, 294, 262, 294, 330 };
+  int noteDuration[ ] = { 400, 200, 200, 200, 400, 200, 200, 400, 200, 200, 400, 200, 200, 400, 200, 200, 400, 200, 400, 200, 400 };
+  
+  // Play the melody
+  for (int i = 0; i < 21; i++) {
+    tone(buzzerPin, melody[i], noteDuration[i]);
+    delay(noteDuration[i] * 1.30);
+    noTone(buzzerPin);
+  }
+  delay(500); // Pause for half a second between melodies
+}
+
+void playRed() {
+int melody[] = { 659, 622, 659, 622, 659, 494, 587, 523, 440, 523, 494 };
+  int noteDuration[] = { 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 750 };
+  
+  // Play the melody
+  for (int i = 0; i < 11; i++) {
+    tone(buzzerPin, melody[i], noteDuration[i]);
+    delay(noteDuration[i] * 1.30);
+    noTone(buzzerPin);
+  }
+  delay(500); // Pause for half a second between melodies
+}
 
 // Stores frequency read by the photodiodes. To be calibrated
 // Calibrate with 3 RGB paper at different distances (near and far) for each colour
@@ -78,9 +105,11 @@ int readColour() {
   // a message in the serial monitor
   if (redColor > greenColor) {
     // To be replaced with returning a number. For eg, we set red = 1, then return 1
+     playRed();
     dbprintf(" - RED detected!\n");
   } else if (greenColor > redColor) {
     // To be replaced with returning a number. For eg, we set green = 2, then return 2
+     playGreen();
     dbprintf(" - GREEN detected!\n");
   } else {
     dbprintf("try again\n");
