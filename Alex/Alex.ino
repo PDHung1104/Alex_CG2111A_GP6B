@@ -18,12 +18,10 @@
 // Calibrate with 3 RGB paper at different distances (near and far) for each colour
 int redFrequency = 0;
 int greenFrequency = 0;
-int blueFrequency = 0;
 
 // Stores the red. green and blue colors
 int redColor = 0;
 int greenColor = 0;
-int blueColor = 0;
 
 int readColour() {
   // Setting RED (R) filtered photodiodes to be read
@@ -35,13 +33,13 @@ int readColour() {
   // Remaping the value of the RED (R) frequency from 0 to 255
   // You must replace with your own values. Here's an example:
   // redColor = map(redFrequency, 70, 120, 255,0);
-  redColor = map(redFrequency, XX, XX, 255, 0);
-
+  redColor = map(redFrequency, 68, 110, 255, 0);
+/*
   // Printing the RED (R) value
   dbprintf("R = ");
   dbprintf("%d\n", redColor);
   delay(100);
-
+*/
   // Setting GREEN (G) filtered photodiodes to be read
   digitalWrite(S2, HIGH);
   digitalWrite(S3, HIGH);
@@ -51,13 +49,15 @@ int readColour() {
   // Remaping the value of the GREEN (G) frequency from 0 to 255
   // You must replace with your own values. Here's an example:
   // greenColor = map(greenFrequency, 100, 199, 255, 0);
-  greenColor = map(greenFrequency, XX, XX, 255, 0);
+  greenColor = map(greenFrequency, 81, 100, 255, 0);
 
+   /*
   // Printing the GREEN (G) value
   dbprintf(" G = ");
   dbprintf("%d\n", greenColor);
   delay(100);
-
+*/
+/*
   // Setting BLUE (B) filtered photodiodes to be read
   digitalWrite(S2, LOW);
   digitalWrite(S3, HIGH);
@@ -73,20 +73,17 @@ int readColour() {
   dbprintf(" B = ");
   dbprintf("%d\n", blueColor);
   delay(100);
-
+*/
   // Checks the current detected color and prints
   // a message in the serial monitor
-  if (redColor > greenColor && redColor > blueColor) {
+  if (redColor > greenColor) {
     // To be replaced with returning a number. For eg, we set red = 1, then return 1
     dbprintf(" - RED detected!\n");
-  }
-  if (greenColor > redColor && greenColor > blueColor) {
+  } else if (greenColor > redColor) {
     // To be replaced with returning a number. For eg, we set green = 2, then return 2
     dbprintf(" - GREEN detected!\n");
-  }
-  if (blueColor > redColor && blueColor > greenColor) {
-    // To be replaced with returning a number. For eg, we set blue = 3, then return 3
-    dbprintf(" - BLUE detected!\n");
+  } else {
+    dbprintf("try again\n");
   }
 }
 
